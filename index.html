@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquex - Payment Request App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    
+    <!-- Page 1: Login Screen -->
+    <div id="login-screen" class="page active">
+        <div class="container">c
+            <div class="logo">
+                <h1><i class="fas fa-money-bill-wave"></i> Liquex</h1>
+                <p>Connect. Request. Pay.</p>
+            </div> 
+            <div class="login-form">
+                <h2>Welcome Back</h2>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" placeholder="Username" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="phone" placeholder="Phone Number" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Login</button>
+                </form>
+                <p class="signup-link">
+                    Don't have an account? <a href="#" id="showSignup">Sign Up</a>
+                </p>
+                <div class="demo-credentials">
+                    <h4>Demo Credentials</h4>
+                    <p><strong>Username:</strong> demo</p>
+                    <p><strong>Phone:</strong> 1234567890</p>
+                    <p><strong>Password:</strong> demo123</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 1b: Signup Screen -->
+    <div id="signup-screen" class="page">
+        <div class="container">
+            <div class="logo">
+                <h1><i class="fas fa-money-bill-wave"></i> Liquex</h1>
+                <p>Connect. Request. Pay.</p>
+            </div>
+            <div class="signup-form">
+                <h2>Create Account</h2>
+                <form id="signupForm">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="signup-username" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="signup-email" placeholder="Email Address" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="signup-phone" placeholder="Phone Number" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="signup-password" placeholder="Password" required minlength="6">
+                        <div class="password-strength" id="password-strength">
+                            <div class="strength-bar">
+                                <div class="strength-fill" id="strength-fill"></div>
+                            </div>
+                            <span class="strength-text" id="strength-text">Weak</span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required minlength="6">
+                        <div class="password-match" id="password-match"></div>
+                    </div>
+                    <div class="input-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="signup-terms" required>
+                            <span class="checkmark"></span>
+                            I agree to the <a href="#" id="terms-link">Terms & Conditions</a> and <a href="#" id="privacy-link">Privacy Policy</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-primary">Create Account</button>
+                </form>
+                <p class="login-link">
+                    Already have an account? <a href="#" id="showLogin">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2: Welcome Screen -->
+    <div id="welcome-screen" class="page">
+        <div class="container">
+            <div class="welcome-content">
+                <div class="welcome-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h1 id="welcome-message">Welcome to Liquex!</h1>
+                <p>Your trusted platform for secure payment requests</p>
+                <button id="continue-btn" class="btn-primary">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 3: Main Hub -->
+    <div id="main-hub" class="page">
+        <div class="container">
+            <header class="app-header">
+                <h1><i class="fas fa-money-bill-wave"></i> Liquex</h1>
+                <div class="user-info">
+                    <span id="current-user"></span>
+                    <button id="logout-btn" class="btn-secondary"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+            </header>
+            
+            <div class="hub-content">
+                <div class="location-status-section">
+                    <div id="location-status" class="location-status">
+                        <!-- Location status will be populated here -->
+                    </div>
+                    <button id="request-location-btn" class="btn-secondary" style="display: none;">
+                        <i class="fas fa-map-marker-alt"></i> Enable Location Access
+                    </button>
+                </div>
+                <h2>What would you like to do?</h2>
+                <div class="hub-buttons">
+                    <div class="request-mode-toggle">
+                        <button id="request-mode-btn" class="mode-btn active">
+                            <i class="fas fa-hand-holding-usd"></i>
+                            <span>Request Money</span>
+                        </button>
+                        <button id="transfer-mode-btn" class="mode-btn">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Transfer Money</span>
+                        </button>
+                    </div>
+                    <button id="request-btn" class="hub-btn">
+                        <i class="fas fa-plus-circle"></i>
+                        <span id="request-btn-text">Raise Request</span>
+                    </button>
+                    <button id="notifications-btn" class="hub-btn">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                        <span class="notification-badge" id="notification-count">0</span>
+                    </button>
+                    <button id="transaction-history-btn" class="hub-btn">
+                        <i class="fas fa-history"></i>
+                        <span>Transaction History</span>
+                    </button>
+                    <button id="analytics-btn" class="hub-btn">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Analytics</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 4a: Raise Request Screen -->
+    <div id="raise-request" class="page">
+        <div class="container">
+            <header class="page-header">
+                <button class="back-btn" data-back="main-hub"><i class="fas fa-arrow-left"></i></button>
+                <h2>Raise Payment Request</h2>
+            </header>
+
+            <div class="request-form">
+                <form id="requestForm">
+                    <div class="input-group">
+                        <label for="amount">Amount</label>
+                        <input type="number" id="amount" placeholder="Enter amount" required min="1">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="request-type">Request Type</label>
+                        <select id="request-type" required>
+                            <option value="">Select request type</option>
+                            <option value="money">Money Request</option>
+                            <option value="service">Service Request</option>
+                            <option value="item">Item Request</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="request-urgency">Urgency Level</label>
+                        <select id="request-urgency" required>
+                            <option value="">Select urgency</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="request-category">Category</label>
+                        <select id="request-category" required>
+                            <option value="">Select category</option>
+                            <option value="food">Food & Dining</option>
+                            <option value="transport">Transportation</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="services">Services</option>
+                            <option value="delivery">Delivery</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="description">Description (Optional)</label>
+                        <textarea id="description" placeholder="Describe your request..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Submit Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 4c: Transfer Money Screen -->
+    <div id="transfer-money" class="page">
+        <div class="container">
+            <header class="page-header">
+                <button class="back-btn" data-back="main-hub"><i class="fas fa-arrow-left"></i></button>
+                <h2>Transfer Money</h2>
+            </header>
+
+            <div class="transfer-form">
+                <div class="proximity-warning" id="proximity-warning" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Proximity Transfer: Only users within 700m can receive transfers</span>
+                </div>
+                
+                <form id="transferForm">
+                    <div class="input-group">
+                        <label for="transfer-amount">Amount to Transfer</label>
+                        <input type="number" id="transfer-amount" placeholder="Enter amount" required min="1">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="transfer-recipient">Select Recipient (within 700m)</label>
+                        <select id="transfer-recipient" required>
+                            <option value="">Choose nearby user...</option>
+                            <!-- Recipients will be populated here -->
+                        </select>
+                        <div id="recipient-info" class="recipient-info" style="display: none;">
+                            <small id="recipient-distance" class="recipient-distance"></small>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="transfer-reason">Transfer Reason (Optional)</label>
+                        <select id="transfer-reason">
+                            <option value="">Select reason</option>
+                            <option value="payment">Payment for service</option>
+                            <option value="gift">Gift</option>
+                            <option value="loan">Loan repayment</option>
+                            <option value="split-bill">Split bill</option>
+                            <option value="refund">Refund</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="transfer-description">Description (Optional)</label>
+                        <textarea id="transfer-description" placeholder="Add a note..."></textarea>
+                    </div>
+
+                    <div class="transfer-preview" id="transfer-preview" style="display: none;">
+                        <h4>Transfer Summary</h4>
+                        <div class="preview-row">
+                            <span>Amount:</span>
+                            <span id="preview-amount">$0.00</span>
+                        </div>
+                        <div class="preview-row">
+                            <span>To:</span>
+                            <span id="preview-recipient">Unknown User</span>
+                        </div>
+                        <div class="preview-row">
+                            <span>Distance:</span>
+                            <span id="preview-distance">0m</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Send Transfer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 4b: Notifications Screen -->
+    <div id="notifications-screen" class="page">
+        <div class="container">
+            <header class="page-header">
+                <button class="back-btn" data-back="main-hub"><i class="fas fa-arrow-left"></i></button>
+                <h2>Other Users' Requests</h2>
+                <button id="refresh-notifications" class="btn-secondary"><i class="fas fa-sync-alt"></i></button>
+            </header>
+            
+            <div class="notifications-list" id="notifications-list">
+                <!-- Notifications will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 5: Notification Response Screen -->
+    <div id="notification-response" class="page">
+        <div class="container">
+            <header class="page-header">
+                <button class="back-btn" data-back="notifications-screen"><i class="fas fa-arrow-left"></i></button>
+                <h2>Request Details</h2>
+            </header>
+            
+            <div class="request-details" id="request-details">
+                <!-- Request details will be populated here -->
+            </div>
+            
+            <div class="response-actions">
+                <button id="accept-btn" class="btn-success">Accept Request</button>
+                <button id="reject-btn" class="btn-danger">Reject Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 6: Transaction History -->
+    <div id="transaction-history" class="page">
+        <div class="container">
+            <header class="page-header">
+                <button class="back-btn" data-back="main-hub"><i class="fas fa-arrow-left"></i></button>
+                <h2>Transaction History</h2>
+            </header>
+            
+            <div class="transaction-list" id="transaction-list">
+                <!-- Transactions will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 7: Analytics Dashboard -->
+    <div id="analytics" class="page">
+        <div class="container">
+            <header class="page-header">
+                <button class="back-btn" data-back="main-hub"><i class="fas fa-arrow-left"></i></button>
+                <h2>Analytics Dashboard</h2>
+            </header>
+            
+            <div class="analytics-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Requests</h3>
+                        <div class="stat-value" id="total-requests">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Amount</h3>
+                        <div class="stat-value" id="avg-amount">$0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Value</h3>
+                        <div class="stat-value" id="total-value">$0</div>
+                    </div>
+                </div>
+                
+                <div class="chart-section">
+                    <h3>Requests by Type</h3>
+                    <div class="chart-container" id="type-chart"></div>
+                </div>
+                
+                <div class="chart-section">
+                    <h3>Requests by Urgency</h3>
+                    <div class="chart-container" id="urgency-chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 8: Payment Verification and Interaction -->
+    <div id="payment-verification" class="page">
+        <div class="container">
+            <header class="page-header">
+                <button class="back-btn" data-back="notification-response"><i class="fas fa-arrow-left"></i></button>
+                <h2>Complete Payment</h2>
+            </header>
+            
+            <div class="verification-content">
+                <div class="chat-section">
+                    <h3>Chat with Requester</h3>
+                    <div class="chat-messages" id="chat-messages">
+                        <!-- Chat messages will appear here -->
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="chat-input" placeholder="Type your message...">
+                        <button id="send-message"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+                
+                <div class="location-section">
+                    <h3>Location Sharing</h3>
+                    <button id="share-location" class="btn-secondary">Share My Location</button>
+                    <div id="location-status"></div>
+                </div>
+                
+                <div class="otp-section" id="otp-section" style="display: none;">
+                    <h3>OTP Verification</h3>
+                    <p>Enter the OTP sent to your phone</p>
+                    <div class="otp-input">
+                        <input type="text" id="otp-input" placeholder="Enter OTP" maxlength="6">
+                    </div>
+                    <button id="verify-otp" class="btn-primary">Verify OTP</button>
+                </div>
+                
+                <div class="payment-complete" id="payment-complete" style="display: none;">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Payment Completed!</h3>
+                    <p>Your transaction has been successfully completed.</p>
+                    <button id="back-to-hub" class="btn-primary">Back to Main Hub</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="demo-data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
